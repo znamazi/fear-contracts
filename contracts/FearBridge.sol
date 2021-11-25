@@ -14,9 +14,9 @@ interface IERC20 {
         uint256 amount
     ) external;
 
-    function pool_burn_from(address b_address, uint256 b_amount) external;
+    function mint(address reveiver, uint256 amount) external returns (bool);
 
-    function pool_mint(address m_address, uint256 m_amount) external;
+    function burn(address sender, uint256 amount) external returns (bool);
 }
 
 contract FearBridge is Ownable {
@@ -90,7 +90,7 @@ contract FearBridge is Ownable {
 
         IERC20 token = IERC20(tokens[tokenId]);
         if (mintable) {
-            token.pool_burn_from(msg.sender, amount);
+            token.burn(msg.sender, amount);
         } else {
             token.transferFrom(msg.sender, address(this), amount);
         }
@@ -154,7 +154,7 @@ contract FearBridge is Ownable {
         amount -= (amount * fee) / scale;
         IERC20 token = IERC20(tokens[tokenId]);
         if (mintable) {
-            token.pool_mint(user, amount);
+            token.mint(user, amount);
         } else {
             token.transfer(user, amount);
         }

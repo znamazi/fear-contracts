@@ -79,6 +79,7 @@ module.exports = {
           process.env.PK,
           'https://rinkeby.infura.io/v3/' + process.env.INFURA_KEY
         ),
+      networkCheckTimeout:10000,
       network_id: 4, // Ropsten's id
       gas: 5500000, // Ropsten has a lower block limit than mainnet
       confirmations: 2, // # of confs to wait between deployments. (default: 0)
